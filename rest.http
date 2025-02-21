@@ -1,0 +1,79 @@
+@rootUrl=http://localhost:8080/api/v1
+@authEp={{rootUrl}}/auth
+
+@bookEp = {{rootUrl}}/books
+POST {{authEp}}/login
+Content-Type: application/json
+
+{
+    "email":"a@gmail.com",
+    "password":"a"
+}
+
+###
+POST {{authEp}}/register
+Content-Type: application/json
+
+{
+    "fName":"a",
+    "lName":"a",
+    "email":"a@gmail.com",
+    "password":"a",
+    "phone":"1"
+
+}
+
+###
+GET {{authEp}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzM5ODQ2NzM5LCJleHAiOjE3Mzk5MzMxMzl9.1ohW3T6EXz2yI0GTgymVEkh3SocfaoM2bO3MimnftFM
+
+
+### Logout user and invalidate jwt
+GET {{authEp}}/logout
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQwMTMwNzcyLCJleHAiOjE3NDAyMTcxNzJ9.1-kIhwN2uYmi4LCpu0BeK4-PjtRDzmVVIoiIip_T9Ew
+
+
+### Renew jwt token 
+GET {{authEp}}/renew-jwt
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQwMTMwNzcyLCJleHAiOjE3NDAyMTcxNzJ9.1-kIhwN2uYmi4LCpu0BeK4-PjtRDzmVVIoiIip_T9Ew
+
+### create book
+POST {{bookEp}}
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQwMTMyODA0LCJleHAiOjE3NDAyMTkyMDR9.GHX87JiIPLPZhtk_uJqi-9wACCa4w6v-DvbnfNW1E2g
+
+{
+   "title":"ishwor karki",
+   "author":"ishowr",
+   "thumbnail":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3fxbbEjr_4G1gNWSPOd5laur-yhcHAROH0A&sss",
+   "isbn":"57596",
+   "genre":"horror",
+   "publishedYear":"2025"
+}
+### delete book
+DELETE  {{bookEp}}/67b3fec88ffa34476f6478ea
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQwMTMyODA0LCJleHAiOjE3NDAyMTkyMDR9.GHX87JiIPLPZhtk_uJqi-9wACCa4w6v-DvbnfNW1E2g
+### update book
+Put {{bookEp}}/67b84c047b3dd385ebed3e09
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQwMTMyODA0LCJleHAiOjE3NDAyMTkyMDR9.GHX87JiIPLPZhtk_uJqi-9wACCa4w6v-DvbnfNW1E2g
+
+{
+   "title":"ishwor karki",
+   "author":"ishowr",
+   "thumbnail":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3fxbbEjr_4G1gssNWSPOd5laur-yhcHAROH0A&sss",
+   "isbn":"524655444444",
+   "genre":"horror",
+   "publishedYear":"20"
+}
+
+
+###fetch filter books 
+GET {{bookEp}}
+
+
+
+### get all books by admin
+GET {{bookEp}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQwMTMyODA0LCJleHAiOjE3NDAyMTkyMDR9.GHX87JiIPLPZhtk_uJqi-9wACCa4w6v-DvbnfNW1E2g
