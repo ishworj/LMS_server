@@ -19,7 +19,7 @@ router.put("/:id", authenticate, isAdmin, createBookValidator, updateBook);
 
 router.delete("/:id", authenticate, isAdmin, removeBook);
 
-router.get("", getBooks);
+router.get("/pub-books", getBooks);
 
 router.get("", authenticate, isAdmin, getAllBooks);
 

@@ -10,6 +10,14 @@ Content-Type: application/json
     "password":"a"
 }
 
+### get all books by admin
+GET {{bookEp}}
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxMDUzNzU3LCJleHAiOjE3NDEwNTM3ODd9.c4kqCXsXiY7bRbHW5-vOAY8pHLodAG4CV9yTRsHMakc
+
+### Renew jwt token 
+GET {{authEp}}/renew-jwt
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxMDU1MzY2LCJleHAiOjE3NDIzNTEzNjZ9.3eHmNGd95BBxcn7xQJQosRbHEoKPeaot_5cFwbcitoc
+
 ###
 POST {{authEp}}/register
 Content-Type: application/json
@@ -35,7 +43,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29t
 
 ### Renew jwt token 
 GET {{authEp}}/renew-jwt
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQwMTMwNzcyLCJleHAiOjE3NDAyMTcxNzJ9.1-kIhwN2uYmi4LCpu0BeK4-PjtRDzmVVIoiIip_T9Ew
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxMDUyMzU2LCJleHAiOjE3NDIzNDgzNTZ9.EC1r6WUItrrulO9dCnnZV5f8NQLZFSntcVO-OF37JcM
 
 ### create book
 POST {{bookEp}}
@@ -70,10 +78,10 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29t
 
 
 ###fetch filter books 
-GET {{bookEp}}
+GET {{bookEp}}/pub-books?status=active
 
 
 
 ### get all books by admin
 GET {{bookEp}}
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQwMTMyODA0LCJleHAiOjE3NDAyMTkyMDR9.GHX87JiIPLPZhtk_uJqi-9wACCa4w6v-DvbnfNW1E2g
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxMDUyMjg2LCJleHAiOjE3NDExMzg2ODZ9.5pAody1AvluR-o3bncCt1FnYRLCkG-2JjX1lHapmbFk

@@ -5,7 +5,7 @@ import {
   registerValidator,
 } from "../middlewares/joiValidation.js";
 import { getUserDetail, login, logoutUser, register, renewJwt } from "../controllers/authController.js";
-import { authenticate, isAdmin } from "../middlewares/authenticateMiddleware.js";
+import { authenticate, isAdmin, refreshAuthenticate } from "../middlewares/authenticateMiddleware.js";
 
 //login
 router.post("/login", loginValidator, login);
@@ -19,7 +19,7 @@ router.get("/",authenticate,isAdmin,getUserDetail)
 router.get("/logout",authenticate,logoutUser)
 
 //renew jwt token
-router.get("/renew-jwt",authenticate,renewJwt)
+router.get("/renew-jwt", refreshAuthenticate, renewJwt);
 
 
 export default router;

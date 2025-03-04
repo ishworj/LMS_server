@@ -1,6 +1,6 @@
-import { createNewUser, getUserByEmail } from "../models/users/UserModel.js";
+import { createNewUser, getUserByEmail, UpdateUser } from "../models/users/UserModel.js";
 import { comparePassword, hashPassword } from "../utils/bcryptjs.js";
-import { jwtSign } from "../utils/jwt.js";
+import { jwtSign, refreshJwtSign } from "../utils/jwt.js";
 
 export const login = async (req, res, next) => {
   try {
@@ -8,18 +8,34 @@ export const login = async (req, res, next) => {
     const userData = await getUserByEmail(email);
     if (userData) {
       const loginSuccess = await comparePassword(password, userData.password);
-      if (loginSuccess) {
-        // Creating token and sending as a response
+      // Creating token and sending as a response
         const tokenData = {
           email: userData.email,
         };
 
         const token = await jwtSign(tokenData);
+        const refreshToken = await refreshJwtSign(tokenData);
+
+        // save the refresh Token in the userData
+      const data = await UpdateUser(
+        { email: userData.email },
+        {
+          refreshJWT: refreshToken,
+        }
+      );
+  console.log(userData);
+      if (loginSuccess) {
+        
 
         return res.status(200).json({
-          staus: "success",
+          status: "success",
           message: "login succesfull",
-          accesToken: token,
+          accessToken: token,
+          refreshToken: refreshToken,
+          user: {
+            _id: userData._id,
+            fName:userData.fName,
+          },
         });
       } else {
         next({
@@ -30,7 +46,7 @@ export const login = async (req, res, next) => {
     } else {
       next({
         statusCode: 404,
-        message: "login error",
+        message: "user not found",
       });
     }
   } catch (error) {
@@ -82,7 +98,7 @@ export const getUserDetail = async (req,res,next) =>{
   try {
       req.userData.password = undefined;
       res.send({
-        staus: "success",
+        status: "success",
         message: "user details",
         userData: req.userData,
       });
@@ -111,19 +127,17 @@ export const logoutUser = async (req,res,next)=>{
 }
 
 export const renewJwt = async (req, res, next) => {
-  try {
-    const userEmail = req.userData.email;
-    const token = await jwtSign({userEmail});
+  // recreate the access Token
 
-    res.send({
-      message:"this is new token generated again previous one might work",
-      user:req.userData,
-      token
-    })
-  } catch (error) {
-    next({
-      statusCode: 400,
-      message: error?.message,
-    });
-  }
+  const tokenData = {
+    email: req.userData.email,
+  };
+
+  const token = await jwtSign(tokenData);
+
+  return res.status(200).json({
+    status: "success",
+    message: "Token Refreshed",
+    accessToken: token,
+  });
 };
