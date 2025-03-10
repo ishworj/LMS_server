@@ -10,6 +10,8 @@ export const createBook = async (req, res, next) => {
   try {
     const book = await insertBook(req.body);
 
+    console.log(req.body)
+
     book?._id
       ? res.json({
           status: "success",
@@ -56,6 +58,7 @@ export const removeBook = async (req, res, next) => {
     const deletedBook = await deleteBook(req.params.id);
     res.send({
       status: "success",
+      message:"book deleted successfully",
       deletedBook,
     });
   } catch (error) {
@@ -91,9 +94,12 @@ export const getBooks = async (req, res, next) => {
 
 export const getAllBooks = async (req, res, next) => {
   try {
-    const allBooks = await fetchAllBooks();
+    const books = await fetchAllBooks();
 
-    return res.send(allBooks);
+    res.json({
+      status: "success",
+      books,
+    });
   } catch (error) {
     next({
       status: "error",

@@ -35,6 +35,7 @@ export const login = async (req, res, next) => {
           user: {
             _id: userData._id,
             fName:userData.fName,
+            lName:userData.lName
           },
         });
       } else {
@@ -97,6 +98,7 @@ export const register = async (req, res, next) => {
 export const getUserDetail = async (req,res,next) =>{
   try {
       req.userData.password = undefined;
+      req.userData.refreshJWT=undefined;
       res.send({
         status: "success",
         message: "user details",
@@ -138,6 +140,6 @@ export const renewJwt = async (req, res, next) => {
   return res.status(200).json({
     status: "success",
     message: "Token Refreshed",
-    accessToken: token,
+    accessJWT: token,
   });
 };

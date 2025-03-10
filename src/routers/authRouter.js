@@ -13,7 +13,7 @@ router.post("/login", loginValidator, login);
 router.post("/register", registerValidator, register);
 
 //get user
-router.get("/",authenticate,isAdmin,getUserDetail)
+router.get("/",authenticate,getUserDetail)
 
 // logout and invalidate jwt 
 router.get("/logout",authenticate,logoutUser)

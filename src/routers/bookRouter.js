@@ -10,17 +10,20 @@ import {
   removeBook,
   updateBook,
 } from "../controllers/bookController.js";
-import { createBookValidator } from "../middlewares/joiValidation.js";
+import {
+  createBookValidator,
+  updateBookValidator,
+} from "../middlewares/joiValidation.js";
 const router = express.Router();
 
 router.post("/", authenticate, isAdmin, createBookValidator, createBook);
 
-router.put("/:id", authenticate, isAdmin, createBookValidator, updateBook);
+router.put("/:id", authenticate, isAdmin, updateBookValidator, updateBook);
 
 router.delete("/:id", authenticate, isAdmin, removeBook);
 
 router.get("/pub-books", getBooks);
 
-router.get("", authenticate, isAdmin, getAllBooks);
+router.get("/", authenticate, isAdmin, getAllBooks);
 
 export default router;

@@ -16,7 +16,7 @@ Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tI
 
 ### Renew jwt token 
 GET {{authEp}}/renew-jwt
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxMDU1MzY2LCJleHAiOjE3NDIzNTEzNjZ9.3eHmNGd95BBxcn7xQJQosRbHEoKPeaot_5cFwbcitoc
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxNTkwMTMzLCJleHAiOjE3NDI4ODYxMzN9.5c98H0qh6XZj00TCxZYwYSepURSIPf8JL8rPLjbzBBc
 
 ###
 POST {{authEp}}/register
@@ -85,3 +85,8 @@ GET {{bookEp}}/pub-books?status=active
 ### get all books by admin
 GET {{bookEp}}
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxMDUyMjg2LCJleHAiOjE3NDExMzg2ODZ9.5pAody1AvluR-o3bncCt1FnYRLCkG-2JjX1lHapmbFk
+
+
+### 
+GET {{authEp}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxNTY0MDkxLCJleHAiOjE3NDE1NjQxMjF9.9c5S8g4nmCOC4pu-Ex6gq4OgNCxTRLOChMU4RB-A0do

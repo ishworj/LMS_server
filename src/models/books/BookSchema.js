@@ -3,10 +3,14 @@ const bookSchema = new mongoose.Schema(
   {
     status: {
       type: String,
-      enum:["active" , "inactive"],
+      enum: ["active", "inactive"],
       default: "inactive",
     },
     title: {
+      type: String,
+      required: true,
+    },
+    genre: {
       type: String,
       required: true,
     },
