@@ -3,11 +3,13 @@ import mongoose from "mongoose";
 const BorrowHistorySchema = new mongoose.Schema(
   {
     userId: {
+      //patload
       type: mongoose.Schema.Types.ObjectId,
       ref: "users",
       required: true,
     },
     bookId: {
+      //payload
       type: mongoose.Schema.Types.ObjectId,
       ref: "books",
       required: true,
@@ -37,6 +39,16 @@ const BorrowHistorySchema = new mongoose.Schema(
     reviewId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "reviews",
+    },
+    title: {
+      //payload 
+      type: String,
+      required: true,
+    },
+    thumbnail: {
+      //payload
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }

@@ -1,7 +1,9 @@
-@rootUrl=http://localhost:8080/api/v1
+@rootUrl=http://localhost:8090/api/v1
 @authEp={{rootUrl}}/auth
 
 @bookEp = {{rootUrl}}/books
+
+@borrowEP = {{rootUrl}}/borrows
 POST {{authEp}}/login
 Content-Type: application/json
 
@@ -12,7 +14,7 @@ Content-Type: application/json
 
 ### get all books by admin
 GET {{bookEp}}
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxMDUzNzU3LCJleHAiOjE3NDEwNTM3ODd9.c4kqCXsXiY7bRbHW5-vOAY8pHLodAG4CV9yTRsHMakc
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxNjUzMzY5LCJleHAiOjE3NDE3Mzk3Njl9.DmormHeCKriz9_sOeoREBB1UEWioPD699rVDk_baZmk
 
 ### Renew jwt token 
 GET {{authEp}}/renew-jwt
@@ -43,7 +45,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29t
 
 ### Renew jwt token 
 GET {{authEp}}/renew-jwt
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxMDUyMzU2LCJleHAiOjE3NDIzNDgzNTZ9.EC1r6WUItrrulO9dCnnZV5f8NQLZFSntcVO-OF37JcM
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxNjQ0ODQ0LCJleHAiOjE3NDI5NDA4NDR9.Mqe9tdiEmADNcMvZHqeACy-sqAYDZGlml8UthauYz-I
 
 ### create book
 POST {{bookEp}}
@@ -90,3 +92,15 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29t
 ### 
 GET {{authEp}}
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxNTY0MDkxLCJleHAiOjE3NDE1NjQxMjF9.9c5S8g4nmCOC4pu-Ex6gq4OgNCxTRLOChMU4RB-A0do
+
+
+### 
+POST  {{borrowEP}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxNjUzNjc4LCJleHAiOjE3NDE3NDAwNzh9.SfNNq4RfYeklj35Cv_31RSkWCiJa3Gd1AVN1T2cajZc
+Content-Type: application/json
+
+{
+    "bookId": "67ceb52ee4f2da79c5b4f548",
+    "title": "a",
+    "thumbnail": "https://i1.sndcdn.com/avatars-000214145850-3zs8uo-t240x240.jpg"
+}

@@ -41,6 +41,7 @@ export const refreshAuthenticate = async (req, res, next) => {
   try {
     // 1. get the token
     const token = req.headers.authorization;
+    console.log(token);
     // 2. verify the token
     const decodedData = await refreshJwtVerify(token);
     console.log("DECODED", decodedData);
