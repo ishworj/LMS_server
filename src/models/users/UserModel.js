@@ -10,9 +10,14 @@ export const getUserByEmail = (email) => {
 };
 //update user
 export const UpdateUser = (filter, updatedUserObject) => {
-  return UserSchema.findOneAndUpdate(filter, updatedUserObject);
+  return UserSchema.findOneAndUpdate(filter, updatedUserObject, { new: true });
 };
 //delete user
 export const deleteUserById = (_id) => {
   return UserSchema.findByIdAndDelete(_id);
+};
+
+// get all user
+export const getAllUser = () => {
+  return UserSchema.find({});
 };

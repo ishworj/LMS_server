@@ -11,6 +11,14 @@ Content-Type: application/json
     "email":"a@gmail.com",
     "password":"a"
 }
+###
+PUT {{authEp}}
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxNzY5MTM2LCJleHAiOjE3NDE4NTU1MzZ9.coxzdY1pFc7IPtI4iO_ZGr0Sp7hSompbujoKTpzUySg
+
+{
+    "fName":"a"
+}
 
 ### get all books by admin
 GET {{bookEp}}
@@ -25,10 +33,10 @@ POST {{authEp}}/register
 Content-Type: application/json
 
 {
-    "fName":"a",
-    "lName":"a",
-    "email":"a@gmail.com",
-    "password":"a",
+    "fName":"i",
+    "lName":"i",
+    "email":"ii@gmail.com",
+    "password":"i",
     "phone":"1"
 
 }
@@ -104,3 +112,8 @@ Content-Type: application/json
     "title": "a",
     "thumbnail": "https://i1.sndcdn.com/avatars-000214145850-3zs8uo-t240x240.jpg"
 }
+
+
+### get all user admin
+GET {{authEp}}/all
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxNzc4MDAwLCJleHAiOjE3NDE4NjQ0MDB9.SXmSxAxiSCy0QOsLvgWtKT4RxWTDVtdWuKZ0s95qYAs

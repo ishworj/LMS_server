@@ -1,4 +1,9 @@
-import { createNewUser, getUserByEmail, UpdateUser } from "../models/users/UserModel.js";
+import {
+  createNewUser,
+  getAllUser,
+  getUserByEmail,
+  UpdateUser,
+} from "../models/users/UserModel.js";
 import { comparePassword, hashPassword } from "../utils/bcryptjs.js";
 import { jwtSign, refreshJwtSign } from "../utils/jwt.js";
 
@@ -9,24 +14,22 @@ export const login = async (req, res, next) => {
     if (userData) {
       const loginSuccess = await comparePassword(password, userData.password);
       // Creating token and sending as a response
-        const tokenData = {
-          email: userData.email,
-        };
+      const tokenData = {
+        email: userData.email,
+      };
 
-        const token = await jwtSign(tokenData);
-        const refreshToken = await refreshJwtSign(tokenData);
+      const token = await jwtSign(tokenData);
+      const refreshToken = await refreshJwtSign(tokenData);
 
-        // save the refresh Token in the userData
+      // save the refresh Token in the userData
       const data = await UpdateUser(
         { email: userData.email },
         {
           refreshJWT: refreshToken,
         }
       );
-  console.log(userData);
+      console.log(userData);
       if (loginSuccess) {
-        
-
         return res.status(200).json({
           status: "success",
           message: "login succesfull",
@@ -34,8 +37,8 @@ export const login = async (req, res, next) => {
           refreshToken: refreshToken,
           user: {
             _id: userData._id,
-            fName:userData.fName,
-            lName:userData.lName
+            fName: userData.fName,
+            lName: userData.lName,
           },
         });
       } else {
@@ -51,6 +54,7 @@ export const login = async (req, res, next) => {
       });
     }
   } catch (error) {
+    console.log(error);
     next({
       statusCode: 500,
       message: "login error",
@@ -79,7 +83,7 @@ export const register = async (req, res, next) => {
       data,
     });
   } catch (error) {
-    const emsg=error.message;
+    const emsg = error.message;
     if (emsg.includes("E11000 duplicate key error collection:")) {
       return next({
         statusCodE: 400,
@@ -94,31 +98,14 @@ export const register = async (req, res, next) => {
   }
 };
 
-
-export const getUserDetail = async (req,res,next) =>{
+export const getUserDetail = async (req, res, next) => {
   try {
-      req.userData.password = undefined;
-      req.userData.refreshJWT=undefined;
-      res.send({
-        status: "success",
-        message: "user details",
-        userData: req.userData,
-      });
-  } catch (error) {
-     next({
-       statusCode: 400,
-       message: error?.message,
-     });
-  }
-}
-
-
-export const logoutUser = async (req,res,next)=>{
-  try {
-    
-    res.json({
-      message: "invalidate jwt token code goes here",
-      
+    req.userData.password = undefined;
+    req.userData.refreshJWT = undefined;
+    res.send({
+      status: "success",
+      message: "user details",
+      userData: req.userData,
     });
   } catch (error) {
     next({
@@ -126,7 +113,64 @@ export const logoutUser = async (req,res,next)=>{
       message: error?.message,
     });
   }
-}
+};
+
+export const getAllUserDetail = async (req, res, next) => {
+  try {
+    const users = await getAllUser();
+    res.send({ 
+      status: "success",
+      message: "All users fetched ",
+      users
+    });
+  } catch (error) {
+    next({
+      statusCode: 400,
+      message: error?.message,
+    });
+  }
+};
+
+export const updateUserDetail = async (req, res, next) => {
+  try {
+    const user =  await UpdateUser(
+      {
+        email: req.userData.email,
+      },
+      req.body
+    );
+
+    if (user) {
+      return res.send({
+        status: "success",
+        message: "profile updated successfully",
+        user,
+      });
+    } else {
+      next({
+        message: "Error while updating profile",
+      });
+    }
+  } catch (error) {
+    next({
+      statusCode: 400,
+      message: error?.message,
+    });
+  }
+};
+
+export const logoutUser = async (req, res, next) => {
+  try {
+    res.json({
+      message: "invalidate jwt token code goes here",
+    });
+  } catch (error) {
+    next({
+      statusCode: 400,
+      message: error?.message,
+    });
+  }
+};
 
 export const renewJwt = async (req, res, next) => {
   // recreate the access Token
