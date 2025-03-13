@@ -1,5 +1,6 @@
 import {
   createNewUser,
+  deleteUserById,
   getAllUser,
   getUserByEmail,
   UpdateUser,
@@ -118,10 +119,10 @@ export const getUserDetail = async (req, res, next) => {
 export const getAllUserDetail = async (req, res, next) => {
   try {
     const users = await getAllUser();
-    res.send({ 
+    res.send({
       status: "success",
       message: "All users fetched ",
-      users
+      users,
     });
   } catch (error) {
     next({
@@ -133,7 +134,7 @@ export const getAllUserDetail = async (req, res, next) => {
 
 export const updateUserDetail = async (req, res, next) => {
   try {
-    const user =  await UpdateUser(
+    const user = await UpdateUser(
       {
         email: req.userData.email,
       },
@@ -186,4 +187,53 @@ export const renewJwt = async (req, res, next) => {
     message: "Token Refreshed",
     accessJWT: token,
   });
+};
+
+export const deleteUser = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const data = await deleteUserById(id);
+    data &&
+      res.send({
+        status: "success",
+        message: "user deleted",
+        data
+      });
+  } catch (error) {
+    next({
+      statusCode: 400,
+      message: error?.message,
+    });
+  }
+};
+
+
+export const updateUserByAdmin = async (req, res, next) => {
+   try {
+
+    const id = req.params.id;
+     const user = await UpdateUser(
+       {
+         _id:id
+       },
+       req.body
+     );
+
+     if (user) {
+       return res.send({
+         status: "success",
+         message: "profile updated successfully",
+         user,
+       });
+     } else {
+       next({
+         message: "Error while updating profile",
+       });
+     }
+   } catch (error) {
+     next({
+       statusCode: 400,
+       message: error?.message,
+     });
+   }
 };

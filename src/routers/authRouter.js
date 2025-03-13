@@ -4,8 +4,22 @@ import {
   loginValidator,
   registerValidator,
 } from "../middlewares/joiValidation.js";
-import { getAllUserDetail, getUserDetail, login, logoutUser, register, renewJwt, updateUserDetail } from "../controllers/authController.js";
-import { authenticate, isAdmin, refreshAuthenticate } from "../middlewares/authenticateMiddleware.js";
+import {
+  deleteUser,
+  getAllUserDetail,
+  getUserDetail,
+  login,
+  logoutUser,
+  register,
+  renewJwt,
+  updateUserByAdmin,
+  updateUserDetail,
+} from "../controllers/authController.js";
+import {
+  authenticate,
+  isAdmin,
+  refreshAuthenticate,
+} from "../middlewares/authenticateMiddleware.js";
 
 //login
 router.post("/login", loginValidator, login);
@@ -13,19 +27,24 @@ router.post("/login", loginValidator, login);
 router.post("/register", registerValidator, register);
 
 //get user
-router.get("/",authenticate,getUserDetail)
+router.get("/", authenticate, getUserDetail);
 
 // get all user by admin
-router.get("/all", authenticate,isAdmin, getAllUserDetail);
+router.get("/all", authenticate, isAdmin, getAllUserDetail);
 
-// update user 
-router.put("/",authenticate,updateUserDetail)
+// update user
+router.put("/", authenticate, updateUserDetail);
 
-// logout and invalidate jwt 
-router.get("/logout",authenticate,logoutUser)
+// logout and invalidate jwt
+router.get("/logout", authenticate, logoutUser);
 
 //renew jwt token
 router.get("/renew-jwt", refreshAuthenticate, renewJwt);
 
+// delete user by admin
+
+router.delete("/:id", authenticate, isAdmin, deleteUser);
+
+router.put("/:id", authenticate, isAdmin, updateUserByAdmin);
 
 export default router;

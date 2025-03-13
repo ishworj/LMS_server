@@ -14,6 +14,7 @@ export const UpdateUser = (filter, updatedUserObject) => {
 };
 //delete user
 export const deleteUserById = (_id) => {
+  console.log(_id)
   return UserSchema.findByIdAndDelete(_id);
 };
 

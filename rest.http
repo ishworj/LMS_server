@@ -33,10 +33,10 @@ POST {{authEp}}/register
 Content-Type: application/json
 
 {
-    "fName":"i",
-    "lName":"i",
-    "email":"ii@gmail.com",
-    "password":"i",
+    "fName":"delte",
+    "lName":"delete",
+    "email":"delete@gmail.com",
+    "password":"delete",
     "phone":"1"
 
 }
@@ -117,3 +117,9 @@ Content-Type: application/json
 ### get all user admin
 GET {{authEp}}/all
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxNzc4MDAwLCJleHAiOjE3NDE4NjQ0MDB9.SXmSxAxiSCy0QOsLvgWtKT4RxWTDVtdWuKZ0s95qYAs
+
+
+
+### delete user 
+DELETE  {{authEp}}/67d2aaedead9f5563cfe5ac9
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxODYwMDY1LCJleHAiOjE3NDE5NDY0NjV9.weLXEUo98V3qBLUpsnMTUSi7etmFRsqWSTp47GFj5GQ
