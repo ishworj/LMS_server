@@ -4,6 +4,11 @@ export const createBorrowdb = (borrowObj) => {
   return BorrowHistorySchema(borrowObj).save();
 };
 
+export const getAllBorrowsDB = () => {
+  return BorrowHistorySchema.find({});
+};
+
+
 // export const updateBorrowHistory = (id, borrowObj) => {
 //   return BorrowHistorySchema.findByIdAndUpdate(id, borrowObj, { new: true });
 // };

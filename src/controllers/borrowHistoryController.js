@@ -1,5 +1,5 @@
 import { changeBookDetails } from "../models/books/BookModel.js";
-import { createBorrowdb } from "../models/borrowHistory/BorrowHistoryModel.js";
+import { createBorrowdb, getAllBorrowsDB } from "../models/borrowHistory/BorrowHistoryModel.js";
 import { updateBook } from "./bookController.js";
 
 export const createBorrow = async (req, res, next) => {
@@ -87,3 +87,20 @@ export const createBorrow = async (req, res, next) => {
 //     });
 //   }
 // };
+
+
+export const getAllBorrows = async (req, res, next) => {
+  try {
+    const allBorrows =  await getAllBorrowsDB();
+    res.json({
+      status: "success",
+      message: "borrows fetched successfully",
+      allBorrows
+    });
+  } catch (error) {
+    next({
+      status: "error",
+      message: "Errorfetching borrow history",
+    });
+  }
+};

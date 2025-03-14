@@ -123,3 +123,10 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29t
 ### delete user 
 DELETE  {{authEp}}/67d2aaedead9f5563cfe5ac9
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxODYwMDY1LCJleHAiOjE3NDE5NDY0NjV9.weLXEUo98V3qBLUpsnMTUSi7etmFRsqWSTp47GFj5GQ
+
+
+
+
+###
+GET {{borrowEP}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxOTM5ODA2LCJleHAiOjE3NDIwMjYyMDZ9.mLwkYUcmuJW2pluSsrZSe4Hf7IQkQab5Ie41B1s3XqM
