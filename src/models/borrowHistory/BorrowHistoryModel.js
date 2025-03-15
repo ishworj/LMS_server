@@ -9,6 +9,14 @@ export const getAllBorrowsDB = () => {
 };
 
 
+export const getUserBorrowDB = (id) => {
+  console.log(id)
+  return BorrowHistorySchema.find({userId:id});}
+
+export const returningBook = (filterObj,borrowObj) => {
+  return BorrowHistorySchema.findOneAndUpdate(filterObj,borrowObj)
+};
+
 // export const updateBorrowHistory = (id, borrowObj) => {
 //   return BorrowHistorySchema.findByIdAndUpdate(id, borrowObj, { new: true });
 // };

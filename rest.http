@@ -130,3 +130,19 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29t
 ###
 GET {{borrowEP}}
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxOTM5ODA2LCJleHAiOjE3NDIwMjYyMDZ9.mLwkYUcmuJW2pluSsrZSe4Hf7IQkQab5Ie41B1s3XqM
+
+
+
+###
+GET {{borrowEP}}/history
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQyMDMyMzEwLCJleHAiOjE3NDIxMTg3MTB9._Wj8eJZsHqy7AfURxpnIdxiDgL7LcajEIzBSbhygchs
+### 
+PUT  {{borrowEP}}/return
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQyMDM2MjI1LCJleHAiOjE3NDIxMjI2MjV9.L3Ej24ToizIS5vJjnJChemgn6cIXI3xhUHB11OfXEeY
+
+
+{
+    "id":"67d55cc68b1dbe289e177168",
+    "bookId":"67cf9a257c979968161ed1cd"
+}

@@ -1,5 +1,10 @@
 import { changeBookDetails } from "../models/books/BookModel.js";
-import { createBorrowdb, getAllBorrowsDB } from "../models/borrowHistory/BorrowHistoryModel.js";
+import {
+  createBorrowdb,
+  getAllBorrowsDB,
+  getUserBorrowDB,
+  returningBook,
+} from "../models/borrowHistory/BorrowHistoryModel.js";
 import { updateBook } from "./bookController.js";
 
 export const createBorrow = async (req, res, next) => {
@@ -47,26 +52,41 @@ export const createBorrow = async (req, res, next) => {
   }
 };
 
-// export const returnBook = async (req, res, next) => {
-//   try {
-//     const userId = req.userData._id;
-//     const { bookId, ...borrowObj } = req.body;
-//     console.log(borrowObj);
-//     const returnedBook = await returningBook({ userId, bookId }, borrowObj);
+export const returnBook = async (req, res, next) => {
+  try {
+    const userId = req.userData._id;
+    const bookId = req.body.bookId;
+    const _id = req.body.id;
 
-//     res.json({
-//       status: "success",
-//       message: "book returned successfully",
-//       returnedBook,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     next({
-//       status: "error",
-//       message: "Error while returning the book",
-//     });
-//   }
-// };
+    console.log(_id, userId, bookId);
+    console.log(req.body);
+
+    const returnedBook = await returningBook(
+      { _id, userId, bookId },
+      { status: "returned", returnDate: new Date() }
+    );
+
+    const bookUpdated = await changeBookDetails(bookId, {
+      isAvailable: true,
+      expectedAvailable: null,
+    });
+
+    returnBook &&
+      bookUpdated &&
+      res.json({
+        status: "success",
+        message: "Book returned and updated successfully",
+        returnBook,
+        bookUpdated,
+      });
+  } catch (error) {
+    console.log(error);
+    next({
+      status: "error",
+      message: "Error while returning the book",
+    });
+  }
+};
 
 // export const viewBrowsingHistory = async (req, res, next) => {
 //   try {
@@ -88,19 +108,34 @@ export const createBorrow = async (req, res, next) => {
 //   }
 // };
 
-
 export const getAllBorrows = async (req, res, next) => {
   try {
-    const allBorrows =  await getAllBorrowsDB();
+    const allBorrows = await getAllBorrowsDB();
     res.json({
       status: "success",
       message: "borrows fetched successfully",
-      allBorrows
+      allBorrows,
     });
   } catch (error) {
     next({
       status: "error",
       message: "Errorfetching borrow history",
+    });
+  }
+};
+
+export const viewBorrowDetails = async (req, res, next) => {
+  try {
+    const borrows = await getUserBorrowDB(req.userData._id);
+    res.json({
+      status: "success",
+      message: "borrows fetched successfully",
+      borrows,
+    });
+  } catch (error) {
+    next({
+      status: "error",
+      message: "Error fetching borrow history lidst",
     });
   }
 };
