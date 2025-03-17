@@ -1,21 +1,26 @@
-import ReviewsSchema from "./ReviewSchema.js";
+import ReviewSchema from "./reviewSchema.js";
 
-export const insertReview = (reviewObj) => {
-  return ReviewsSchema(reviewObj).save();
+// insert
+export const insertReview = (obj) => {
+  return ReviewSchema(obj).save();
 };
 
-export const updateReview = (id, reviewObj) => {
-  return ReviewsSchema.findByIdAndUpdate(id, reviewObj, { new: true });
+//Read all for the admin only
+export const getAllReviews = (filter) => {
+  return ReviewSchema.find(filter);
 };
 
-export const deleteReview = (id) => {
-  return ReviewsSchema.findByIdAndDelete(id);
+// get review by Id
+// export const getAReviewById = (_id) => {
+//   return ReviewSchema.findById(_id);
+// };
+
+// update review by id
+export const updateAReviewById = (_id, obj) => {
+  return ReviewSchema.findByIdAndUpdate(_id, obj);
 };
 
-export const fetchReviews = (filterObj) => {
-  return ReviewsSchema.find(filterObj).populate("userId bookId");
-};
-
-export const fetchAllReviews = () => {
-  return ReviewsSchema.find({}).populate("userId bookId");
-};
+//delete review by id
+// export const deleteAReviewById = (_id) => {
+//   return ReviewSchema.findByIdAndDelete(_id);
+// };

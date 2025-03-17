@@ -5,6 +5,8 @@ import morgan from "morgan";
 import authRouter from "./src/routers/authRouter.js";
 import bookRouter from "./src/routers/bookRouter.js";
 import borrowRouter from "./src/routers/borrowHistoryRouter.js";
+import reviewRouter from "./src/routers/reviewRouter.js";
+
 import { errorHandler } from "./src/middlewares/errorHandler.js";
 
 const PORT = 8090;
@@ -18,6 +20,7 @@ app.use(cors());
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/books", bookRouter);
 app.use("/api/v1/borrows", borrowRouter);
+app.use("/api/v1/reviews", reviewRouter);
 if (process.env.NODE_ENV !== "production") {
   app.use(morgan("dev"));
 }
