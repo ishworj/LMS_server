@@ -8,9 +8,12 @@ import {
 
 export const createBook = async (req, res, next) => {
   try {
+    console.log("create book controller ");
+
+    req.body.thumbnail = "image/" + req.file.filename;
     const book = await insertBook(req.body);
 
-    console.log(req.body)
+    console.log(req.body);
 
     book?._id
       ? res.json({
@@ -38,6 +41,7 @@ export const createBook = async (req, res, next) => {
 
 export const updateBook = async (req, res, next) => {
   try {
+    req.body.thumbnail = "image/" + req.file.filename;
     const updatedBook = await changeBookDetails(req.params.id, req.body);
     res.send({
       status: "success",
@@ -58,7 +62,7 @@ export const removeBook = async (req, res, next) => {
     const deletedBook = await deleteBook(req.params.id);
     res.send({
       status: "success",
-      message:"book deleted successfully",
+      message: "book deleted successfully",
       deletedBook,
     });
   } catch (error) {

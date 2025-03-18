@@ -6,6 +6,7 @@ import {
   updateAReviewById,
 } from "../models/reviews/reviewModel.js";
 import { authenticate, isAdmin } from "../middlewares/authenticateMiddleware.js";
+import { returningBook } from "../models/borrowHistory/BorrowHistoryModel.js";
 
 
 const router = express.Router();
@@ -15,6 +16,9 @@ const router = express.Router();
 router.post("/", authenticate, async (req, res, next) => {
   try {
     const review = await insertReview(req.body);
+    const _id = req.body.burrowId;
+    const updatetoReveiwed = await returningBook({_id},{status:"reviewed"})
+    // TODO update borrow hisruryy    to status returned  
     review?._id
       ? res.json({
           status: "success",
@@ -33,6 +37,7 @@ router.post("/", authenticate, async (req, res, next) => {
 router.get("/", async (req, res, next) => {
   try {
     const reviews = await getAllReviews({ status: "active" });
+    
 
     return res.json({
       status: "success",

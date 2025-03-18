@@ -4,6 +4,9 @@ import { jwtVerify, refreshJwtVerify } from "../utils/jwt.js";
 
 export const authenticate = async (req, res, next) => {
   try {
+  console.log(11111, req.body);
+
+    console.log("authenticate ")
     const token = req.headers.authorization;
 
     const tokenFromDb = await findToken(token);

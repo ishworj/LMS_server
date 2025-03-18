@@ -21,6 +21,10 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/books", bookRouter);
 app.use("/api/v1/borrows", borrowRouter);
 app.use("/api/v1/reviews", reviewRouter);
+// serve static files ie image
+app.use("/image", express.static("assets/images"));
+
+app.use(express.static);
 if (process.env.NODE_ENV !== "production") {
   app.use(morgan("dev"));
 }

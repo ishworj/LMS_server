@@ -29,7 +29,7 @@ const BorrowHistorySchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["borrowed", "returned"],
+      enum: ["borrowed", "returned", "reviewed"],
       default: "borrowed",
     },
     isReviewed: {
@@ -41,7 +41,7 @@ const BorrowHistorySchema = new mongoose.Schema(
       ref: "reviews",
     },
     title: {
-      //payload 
+      //payload
       type: String,
       required: true,
     },

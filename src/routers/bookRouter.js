@@ -14,11 +14,26 @@ import {
   createBookValidator,
   updateBookValidator,
 } from "../middlewares/joiValidation.js";
+import { upload } from "../config/multerConfig.js";
 const router = express.Router();
 
-router.post("/", authenticate, isAdmin, createBookValidator, createBook);
+router.post(
+  "/",
+  authenticate,
+  isAdmin,
+  upload.single("bookFile"),
+  createBookValidator,
+  createBook
+);
 
-router.put("/:id", authenticate, isAdmin, updateBookValidator, updateBook);
+router.put(
+  "/:id",
+  authenticate,
+  isAdmin,
+  upload.single("bookFile"),
+  updateBookValidator,
+  updateBook
+);
 
 router.delete("/:id", authenticate, isAdmin, removeBook);
 
