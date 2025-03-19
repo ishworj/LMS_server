@@ -20,7 +20,7 @@ export const updateAReviewById = (_id, obj) => {
   return ReviewSchema.findByIdAndUpdate(_id, obj);
 };
 
-//delete review by id
-// export const deleteAReviewById = (_id) => {
-//   return ReviewSchema.findByIdAndDelete(_id);
-// };
+export const deleteAReviewById = (id) => {
+  console.log(id)
+  return ReviewSchema.findByIdAndDelete(id);
+};

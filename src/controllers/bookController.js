@@ -8,12 +8,11 @@ import {
 
 export const createBook = async (req, res, next) => {
   try {
-    console.log("create book controller ");
 
-    req.body.thumbnail = "image/" + req.file.filename;
+   req.body.thumbnail = req.file ? "image/" + req.file.filename : "";
+
     const book = await insertBook(req.body);
 
-    console.log(req.body);
 
     book?._id
       ? res.json({
@@ -32,6 +31,8 @@ export const createBook = async (req, res, next) => {
         message: "Book already exists",
       });
     }
+
+    console.log(error)
     next({
       status: "error",
       message: "Error creating the book",
@@ -41,7 +42,10 @@ export const createBook = async (req, res, next) => {
 
 export const updateBook = async (req, res, next) => {
   try {
-    req.body.thumbnail = "image/" + req.file.filename;
+      req.body.thumbnail = req.file ? "image/" + req.file.filename : "";
+      if (req.body.expectedAvailable === "null") {
+        req.body.expectedAvailable = null; // Convert string "null" to JavaScript null
+      }
     const updatedBook = await changeBookDetails(req.params.id, req.body);
     res.send({
       status: "success",

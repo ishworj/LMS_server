@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  deleteAReviewById,
   getAllReviews,
   insertReview,
   updateAReviewById,
@@ -10,15 +11,11 @@ import { returningBook } from "../models/borrowHistory/BorrowHistoryModel.js";
 
 
 const router = express.Router();
-
-//Private controllers create new user
-// add the call back to review controller
 router.post("/", authenticate, async (req, res, next) => {
   try {
     const review = await insertReview(req.body);
     const _id = req.body.burrowId;
     const updatetoReveiwed = await returningBook({_id},{status:"reviewed"})
-    // TODO update borrow hisruryy    to status returned  
     review?._id
       ? res.json({
           status: "success",
@@ -60,6 +57,45 @@ router.get("/all", authenticate, isAdmin, async (req, res, next) => {
       message: "",
       reviews,
     });
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+//update status
+router.patch("/", authenticate, isAdmin, async (req, res, next) => {
+  try {
+    const { _id, status } = req.body;
+    const review = await updateAReviewById(_id, { status });
+    review?._id
+      ? res.json({
+          status: "success",
+          message: "The review has been updated successfully",
+        })
+      : res.json({
+          status: "error",
+          message: "Unable to update the review, try agian later",
+        });
+  } catch (error) {
+    next(error);
+  }
+});
+
+//update status
+router.delete("/:id", authenticate, isAdmin, async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const reviewDeleted = await deleteAReviewById(id);
+    reviewDeleted?._id
+      ? res.json({
+          status: "success",
+          message: "The review has been deleted successfully",
+        })
+      : res.json({
+          status: "error",
+          message: "Unable to delete the review, try agian later",
+        });
   } catch (error) {
     next(error);
   }

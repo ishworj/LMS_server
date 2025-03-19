@@ -8,8 +8,9 @@ import borrowRouter from "./src/routers/borrowHistoryRouter.js";
 import reviewRouter from "./src/routers/reviewRouter.js";
 
 import { errorHandler } from "./src/middlewares/errorHandler.js";
+import { SendMail } from "./src/config/nodemailerConfig.js";
 
-const PORT = 8090;
+const PORT = 8080;
 const app = express();
 
 //middlewares
@@ -44,5 +45,6 @@ connectDb()
     );
   })
   .catch((error) => {
+    console.log(error);
     console.log("Error connecting to DB");
   });

@@ -14,6 +14,7 @@ import {
   renewJwt,
   updateUserByAdmin,
   updateUserDetail,
+  verifyUser,
 } from "../controllers/authController.js";
 import {
   authenticate,
@@ -46,5 +47,7 @@ router.get("/renew-jwt", refreshAuthenticate, renewJwt);
 router.delete("/:id", authenticate, isAdmin, deleteUser);
 
 router.put("/:id", authenticate, isAdmin, updateUserByAdmin);
+
+router.get("/verify/:token",verifyUser)
 
 export default router;

@@ -1,3 +1,4 @@
+import { SendMail } from "../config/nodemailerConfig.js";
 import {
   createNewUser,
   deleteUserById,
@@ -7,6 +8,7 @@ import {
 } from "../models/users/UserModel.js";
 import { comparePassword, hashPassword } from "../utils/bcryptjs.js";
 import { jwtSign, refreshJwtSign } from "../utils/jwt.js";
+import { v4 as uuidv4 } from "uuid";
 
 export const login = async (req, res, next) => {
   try {
@@ -65,18 +67,22 @@ export const login = async (req, res, next) => {
 
 export const register = async (req, res, next) => {
   try {
+    console.log("Register route is hit");
     const { fName, lName, email, phone } = req.body;
     let { password } = req.body;
     password = await hashPassword(password);
-
-    // creating
     const data = await createNewUser({
       fName,
       lName,
       email,
       password,
       phone,
+      verifyToken:uuidv4()
     });
+
+    if(data){
+      SendMail(data.verifyToken)
+    }
 
     return res.status(201).json({
       status: "success",
@@ -197,7 +203,7 @@ export const deleteUser = async (req, res, next) => {
       res.send({
         status: "success",
         message: "user deleted",
-        data
+        data,
       });
   } catch (error) {
     next({
@@ -207,33 +213,60 @@ export const deleteUser = async (req, res, next) => {
   }
 };
 
-
 export const updateUserByAdmin = async (req, res, next) => {
-   try {
-
+  try {
     const id = req.params.id;
-     const user = await UpdateUser(
-       {
-         _id:id
-       },
-       req.body
-     );
+    const user = await UpdateUser(
+      {
+        _id: id,
+      },
+      req.body
+    );
 
-     if (user) {
-       return res.send({
-         status: "success",
-         message: "profile updated successfully",
-         user,
-       });
-     } else {
-       next({
-         message: "Error while updating profile",
-       });
-     }
-   } catch (error) {
-     next({
-       statusCode: 400,
-       message: error?.message,
-     });
-   }
+    if (user) {
+      return res.send({
+        status: "success",
+        message: "profile updated successfully",
+        user,
+      });
+    } else {
+      next({
+        message: "Error while updating profile",
+      });
+    }
+  } catch (error) {
+    next({
+      statusCode: 400,
+      message: error?.message,
+    });
+  }
+};
+
+export const verifyUser = async (req, res, next) => {
+  try {
+    const verifyToken = req.params.token;
+    const user = await UpdateUser(
+      { verifyToken: verifyToken },
+      { verifyToken: "", isVerified: true }
+    );
+    user? user.password="":""
+
+    if (user) {
+      return res.send({
+        status: "success",
+        message: "user verified , you may login now",
+        user,
+      });
+    } else {
+      next({
+        message: "Error while verifying user",
+      });
+    }
+  } catch (error) {
+    console.log(error)
+    next({
+      statusCode: 400,
+      message: error?.message,
+    });
+  }
 };

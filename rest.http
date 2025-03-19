@@ -1,4 +1,4 @@
-@rootUrl=http://localhost:8090/api/v1
+@rootUrl=http://localhost:8080/api/v1
 @authEp={{rootUrl}}/auth
 
 @bookEp = {{rootUrl}}/books
@@ -35,7 +35,7 @@ Content-Type: application/json
 {
     "fName":"delte",
     "lName":"delete",
-    "email":"delete@gmail.com",
+    "email":"dddd@gmail.com",
     "password":"delete",
     "phone":"1"
 
@@ -146,3 +146,9 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29t
     "id":"67d55cc68b1dbe289e177168",
     "bookId":"67cf9a257c979968161ed1cd"
 }
+
+
+
+
+###
+GET {{authEp}}/verify/8afb16e0-c1f1-41ad-a3a0-6b26195d9505

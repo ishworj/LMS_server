@@ -5,7 +5,6 @@ import path from "path";
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "assets/images/");
-    console.log("multer puting image ")
   },
 
   filename: function (req, file, cb) {

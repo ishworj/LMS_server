@@ -28,8 +28,6 @@ export const registerValidator = (req, res, next) => {
 };
 
 export const createBookValidator = (req, res, next) => {
-
-  console.log("in book validatir");
   const createBookSchema = Joi.object({
     title: Joi.string().required(),
     author: Joi.string().required(),
