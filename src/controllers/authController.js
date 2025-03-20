@@ -15,6 +15,13 @@ export const login = async (req, res, next) => {
     const { email, password } = req.body;
     const userData = await getUserByEmail(email);
     if (userData) {
+      console.log(userData.isVerified);
+      if (!userData.isVerified) {
+        return res.json({
+          status: "error",
+          message: "user is not verified please verify through your email",
+        });
+      }
       const loginSuccess = await comparePassword(password, userData.password);
       // Creating token and sending as a response
       const tokenData = {
@@ -67,7 +74,6 @@ export const login = async (req, res, next) => {
 
 export const register = async (req, res, next) => {
   try {
-    console.log("Register route is hit");
     const { fName, lName, email, phone } = req.body;
     let { password } = req.body;
     password = await hashPassword(password);
@@ -77,11 +83,11 @@ export const register = async (req, res, next) => {
       email,
       password,
       phone,
-      verifyToken:uuidv4()
+      verifyToken: uuidv4(),
     });
 
-    if(data){
-      SendMail(data.verifyToken)
+    if (data) {
+      SendMail(data.verifyToken, data.email);
     }
 
     return res.status(201).json({
@@ -139,6 +145,8 @@ export const getAllUserDetail = async (req, res, next) => {
 };
 
 export const updateUserDetail = async (req, res, next) => {
+
+  req.body.profileImage = req.file ? "image/" + req.file.filename : "";
   try {
     const user = await UpdateUser(
       {
@@ -249,13 +257,12 @@ export const verifyUser = async (req, res, next) => {
       { verifyToken: verifyToken },
       { verifyToken: "", isVerified: true }
     );
-    user? user.password="":""
+    user ? (user.password = "") : "";
 
     if (user) {
       return res.send({
         status: "success",
         message: "user verified , you may login now",
-        user,
       });
     } else {
       next({
@@ -263,7 +270,7 @@ export const verifyUser = async (req, res, next) => {
       });
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
     next({
       statusCode: 400,
       message: error?.message,

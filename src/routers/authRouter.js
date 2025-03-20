@@ -21,6 +21,7 @@ import {
   isAdmin,
   refreshAuthenticate,
 } from "../middlewares/authenticateMiddleware.js";
+import { upload } from "../config/multerConfig.js";
 
 //login
 router.post("/login", loginValidator, login);
@@ -34,7 +35,7 @@ router.get("/", authenticate, getUserDetail);
 router.get("/all", authenticate, isAdmin, getAllUserDetail);
 
 // update user
-router.put("/", authenticate, updateUserDetail);
+router.put("/", authenticate, upload.single("profileFile"), updateUserDetail);
 
 // logout and invalidate jwt
 router.get("/logout", authenticate, logoutUser);
@@ -48,6 +49,6 @@ router.delete("/:id", authenticate, isAdmin, deleteUser);
 
 router.put("/:id", authenticate, isAdmin, updateUserByAdmin);
 
-router.get("/verify/:token",verifyUser)
+router.get("/verify/:token", verifyUser);
 
 export default router;

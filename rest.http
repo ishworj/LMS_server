@@ -22,11 +22,11 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29t
 
 ### get all books by admin
 GET {{bookEp}}
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxNjUzMzY5LCJleHAiOjE3NDE3Mzk3Njl9.DmormHeCKriz9_sOeoREBB1UEWioPD699rVDk_baZmk
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlzaHdvcmthcmtpajExQGdtYWlsLmNvbSIsImlhdCI6MTc0MjQ1OTQyOCwiZXhwIjoxNzQyNTQ1ODI4fQ.wQBroKYiiJm2Z5vTVqY6pbUI5VZe_mrf0RA-JQujb80
 
 ### Renew jwt token 
-GET {{authEp}}/renew-jwt
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxNTkwMTMzLCJleHAiOjE3NDI4ODYxMzN9.5c98H0qh6XZj00TCxZYwYSepURSIPf8JL8rPLjbzBBc
+GET {{authEp}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImlzaHdvcmthcmtpajExQGdtYWlsLmNvbSIsImlhdCI6MTc0MjQ1OTQyOCwiZXhwIjoxNzQyNTQ1ODI4fQ.wQBroKYiiJm2Z5vTVqY6pbUI5VZe_mrf0RA-JQujb80
 
 ###
 POST {{authEp}}/register

@@ -96,7 +96,7 @@ export const isAdmin = (req, res, next) => {
   req.userData.role === "admin"
     ? next()
     : next({
-        statusCode: "401",
+        statusCode: 401,
         message: "not a authorized user",
       });
 };
