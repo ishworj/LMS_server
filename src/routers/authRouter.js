@@ -6,6 +6,7 @@ import {
 } from "../middlewares/joiValidation.js";
 import {
   deleteUser,
+  generateOTP,
   getAllUserDetail,
   getUserDetail,
   login,
@@ -50,5 +51,7 @@ router.delete("/:id", authenticate, isAdmin, deleteUser);
 router.put("/:id", authenticate, isAdmin, updateUserByAdmin);
 
 router.get("/verify/:token", verifyUser);
+
+router.post("/otp",  generateOTP);
 
 export default router;

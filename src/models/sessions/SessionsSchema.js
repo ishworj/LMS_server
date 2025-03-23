@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 
 const sessionSchema = new mongoose.Schema(
@@ -10,6 +11,12 @@ const sessionSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    expire:{
+      type:Date,
+      required:true,
+      default: new Date(Date.now() + 36000000000),
+      expires:0
+    }
   },
   {
     timestamps: true,

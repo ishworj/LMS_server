@@ -1,4 +1,4 @@
-import { SendMail } from "../config/nodemailerConfig.js";
+import { passwordResetTemplate, SendMail, verifyUserTemplate } from "../config/nodemailerConfig.js";
 import {
   createNewUser,
   deleteUserById,
@@ -9,6 +9,8 @@ import {
 import { comparePassword, hashPassword } from "../utils/bcryptjs.js";
 import { jwtSign, refreshJwtSign } from "../utils/jwt.js";
 import { v4 as uuidv4 } from "uuid";
+import { generaterandom } from "../utils/otpGenerator.js";
+import { insertToken } from "../models/sessions/SessionsSchema.js";
 
 export const login = async (req, res, next) => {
   try {
@@ -45,11 +47,7 @@ export const login = async (req, res, next) => {
           message: "login succesfull",
           accessToken: token,
           refreshToken: refreshToken,
-          user: {
-            _id: userData._id,
-            fName: userData.fName,
-            lName: userData.lName,
-          },
+          user: userData,
         });
       } else {
         next({
@@ -87,7 +85,9 @@ export const register = async (req, res, next) => {
     });
 
     if (data) {
-      SendMail(data.verifyToken, data.email);
+
+      const template = verifyUserTemplate(data.verifyToken, data.email)
+      SendMail(template);
     }
 
     return res.status(201).json({
@@ -145,7 +145,6 @@ export const getAllUserDetail = async (req, res, next) => {
 };
 
 export const updateUserDetail = async (req, res, next) => {
-
   req.body.profileImage = req.file ? "image/" + req.file.filename : "";
   try {
     const user = await UpdateUser(
@@ -271,6 +270,42 @@ export const verifyUser = async (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
+    next({
+      statusCode: 400,
+      message: error?.message,
+    });
+  }
+};
+
+export const generateOTP = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const user = await getUserByEmail(email);
+
+    console.log("Current Time:", new Date());
+    console.log("Expiration Time:", new Date(Date.now() + 1000 * 60 * 5));
+
+    if (user?._id) {
+      const otp = generaterandom();
+
+      const session = await insertToken({
+        token: otp,
+        associate: email,
+        expire: new Date(Date.now() + 1000 * 60 * 5),// 5min 
+      });
+
+      if(session?._id){
+        console.log(session)
+        const template = passwordResetTemplate(email,user.fName,otp)
+       const info =  SendMail(template)
+        console.log("Message sent: %s", info.messageId);
+      }
+    }
+    res.send({
+      status: "success",
+      message:"Otp sent to email "
+    });
+  } catch (error) {
     next({
       statusCode: 400,
       message: error?.message,

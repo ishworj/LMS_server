@@ -10,7 +10,7 @@ import reviewRouter from "./src/routers/reviewRouter.js";
 import { errorHandler } from "./src/middlewares/errorHandler.js";
 import { SendMail } from "./src/config/nodemailerConfig.js";
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const app = express();
 
 //middlewares
