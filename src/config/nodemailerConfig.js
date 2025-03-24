@@ -30,6 +30,18 @@ Your Support Team`,
   };
 };
 
+export const profileUpdatedTemplate = (email, name) => {
+  return {
+    from: process.env.user, // Ensure the correct environment variable is used
+    to: email,
+    subject: "Your account has been updated",
+    text: ` Dear ${name}if its not you go ahead and change your password,and contact us`,
+    html: `<p>Hello ${name},</p>
+           `,
+  };
+};
+
+
 export const SendMail = async (template) => {
   try {
     const config = {

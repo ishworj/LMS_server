@@ -61,3 +61,16 @@ export const updateBookValidator = (req, res, next) => {
 
   joiValidator(updateBookSchema, req, res, next);
 };
+
+
+//update book validation
+export const passwordResetValidator = (req, res, next) => {
+
+  const resetPasswordSchema = Joi.object({
+    email: Joi.string().required(),
+    password: Joi.string().required(),
+    otp: Joi.number().min(999).max(9999).required(),
+  });
+
+  joiValidator(resetPasswordSchema, req, res, next);
+};

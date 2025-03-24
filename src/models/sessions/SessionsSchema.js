@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 
 const sessionSchema = new mongoose.Schema(
@@ -11,12 +10,12 @@ const sessionSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    expire:{
-      type:Date,
-      required:true,
+    expire: {
+      type: Date,
+      required: true,
       default: new Date(Date.now() + 36000000000),
-      expires:0
-    }
+      expires: 0,
+    },
   },
   {
     timestamps: true,
@@ -33,5 +32,9 @@ export const insertToken = (obj) => {
 };
 
 export const findToken = (token) => {
-  return SessionSchema.findOne({ token });
+  return SessionSchema.findOne({ token, email });
+};
+
+export const getSesssion = (otp, email) => {
+  return SessionSchema.findOne({ token: otp, associate: email });
 };

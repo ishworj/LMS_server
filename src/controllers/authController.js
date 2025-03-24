@@ -1,4 +1,9 @@
-import { passwordResetTemplate, SendMail, verifyUserTemplate } from "../config/nodemailerConfig.js";
+import {
+  passwordResetTemplate,
+  profileUpdatedTemplate,
+  SendMail,
+  verifyUserTemplate,
+} from "../config/nodemailerConfig.js";
 import {
   createNewUser,
   deleteUserById,
@@ -10,7 +15,7 @@ import { comparePassword, hashPassword } from "../utils/bcryptjs.js";
 import { jwtSign, refreshJwtSign } from "../utils/jwt.js";
 import { v4 as uuidv4 } from "uuid";
 import { generaterandom } from "../utils/otpGenerator.js";
-import { insertToken } from "../models/sessions/SessionsSchema.js";
+import { findToken, getSesssion, insertToken } from "../models/sessions/SessionsSchema.js";
 
 export const login = async (req, res, next) => {
   try {
@@ -85,8 +90,7 @@ export const register = async (req, res, next) => {
     });
 
     if (data) {
-
-      const template = verifyUserTemplate(data.verifyToken, data.email)
+      const template = verifyUserTemplate(data.verifyToken, data.email);
       SendMail(template);
     }
 
@@ -291,24 +295,57 @@ export const generateOTP = async (req, res, next) => {
       const session = await insertToken({
         token: otp,
         associate: email,
-        expire: new Date(Date.now() + 1000 * 60 * 5),// 5min 
+        expire: new Date(Date.now() + 1000 * 60 * 5), // 5min
       });
 
-      if(session?._id){
-        console.log(session)
-        const template = passwordResetTemplate(email,user.fName,otp)
-       const info =  SendMail(template)
+      if (session?._id) {
+        console.log(session);
+        const template = passwordResetTemplate(email, user.fName, otp);
+        const info = SendMail(template);
         console.log("Message sent: %s", info.messageId);
       }
     }
     res.send({
       status: "success",
-      message:"Otp sent to email "
+      message: "Otp sent to email ",
     });
   } catch (error) {
     next({
       statusCode: 400,
       message: error?.message,
     });
+  }
+};
+
+export const resetNewPassword = async (req, res, next) => {
+  try {
+    const { password, email, otp } = req.body;
+    const session = await getSesssion(otp,email)
+
+    if (session?._id) {
+      // encrypt and update user table
+
+      const hashPass = hashPassword(password);
+
+      const user = await UpdateUser({ email }, { password: hashPass });
+
+      if (user?.id) {
+        const template = profileUpdatedTemplate(user.email, user.fName);
+        const info = SendMail(template);
+        console.log("Message sent: %s", info.messageId);
+
+        return res.json({
+          status: "success",
+          message:
+            "your password has been updated successfully , you may login now",
+        });
+      }
+
+      next({
+        message: "error while reseting password",
+      });
+    }
+  } catch (error) {
+    next(error);
   }
 };

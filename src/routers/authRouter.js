@@ -2,6 +2,7 @@ import express from "express";
 const router = express.Router();
 import {
   loginValidator,
+  passwordResetValidator,
   registerValidator,
 } from "../middlewares/joiValidation.js";
 import {
@@ -13,6 +14,7 @@ import {
   logoutUser,
   register,
   renewJwt,
+  resetNewPassword,
   updateUserByAdmin,
   updateUserDetail,
   verifyUser,
@@ -53,5 +55,8 @@ router.put("/:id", authenticate, isAdmin, updateUserByAdmin);
 router.get("/verify/:token", verifyUser);
 
 router.post("/otp",  generateOTP);
+
+router.post("/reset-password",passwordResetValidator, resetNewPassword);
+
 
 export default router;

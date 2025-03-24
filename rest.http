@@ -160,3 +160,13 @@ Content-Type: application/json
 {
     "email":"a@gmail.com"
 }
+
+###
+POST  {{authEp}}/reset-password
+Content-Type: application/json
+
+{
+    "email":"a@gmail.com",
+    "password":"@",
+    "otp":3715
+}
