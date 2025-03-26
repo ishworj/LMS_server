@@ -49,7 +49,7 @@ export const updateBookValidator = (req, res, next) => {
     // _id: Joi.string().required(),
     author: Joi.string().required(),
     status: Joi.string().required(),
-    // thumbnail: Joi.string().required(),
+    thumbnail: Joi.string(),
     // isbn: Joi.string().required(),
     genre: Joi.string().required(),
     publishedYear: Joi.number().required(),

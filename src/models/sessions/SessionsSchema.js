@@ -32,7 +32,7 @@ export const insertToken = (obj) => {
 };
 
 export const findToken = (token) => {
-  return SessionSchema.findOne({ token, email });
+  return SessionSchema.findOne({ token });
 };
 
 export const getSesssion = (otp, email) => {

@@ -116,7 +116,7 @@ Content-Type: application/json
 
 ### get all user admin
 GET {{authEp}}/all
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQxNzc4MDAwLCJleHAiOjE3NDE4NjQ0MDB9.SXmSxAxiSCy0QOsLvgWtKT4RxWTDVtdWuKZ0s95qYAs
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQyODYyMTMyLCJleHAiOjE3NDI5NDg1MzJ9.uUpF6l8bNe3hIRZqYu43cf6t1FBEzG5AeX-hxqElzbg
 
 
 

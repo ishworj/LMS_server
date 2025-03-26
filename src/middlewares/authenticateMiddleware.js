@@ -4,14 +4,18 @@ import { jwtVerify, refreshJwtVerify } from "../utils/jwt.js";
 
 export const authenticate = async (req, res, next) => {
   try {
-  console.log(11111, req.body);
 
     console.log("authenticate ")
     const token = req.headers.authorization;
+    console.log(1, token)
 
     const tokenFromDb = await findToken(token);
 
+    console.log(2, tokenFromDb)
+
     const decodedData = await jwtVerify(tokenFromDb.token);
+
+    console.log(decodedData)
 
     if (decodedData?.email) {
       const userData = await getUserByEmail(decodedData.email);
