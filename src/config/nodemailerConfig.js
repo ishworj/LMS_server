@@ -13,7 +13,7 @@ export const verifyUserTemplate = (token, email) => {
 
 export const passwordResetTemplate = (email, name, otp) => {
   return {
-    from: process.env.user, // Ensure the correct environment variable is used
+    from: process.env.user, 
     to: email,
     subject: "Your OTP to Reset Your Password",
     text: `Hello ${name}, 
@@ -32,7 +32,7 @@ Your Support Team`,
 
 export const profileUpdatedTemplate = (email, name) => {
   return {
-    from: process.env.user, // Ensure the correct environment variable is used
+    from: process.env.user, 
     to: email,
     subject: "Your account has been updated",
     text: ` Dear ${name}if its not you go ahead and change your password,and contact us`,
@@ -40,6 +40,17 @@ export const profileUpdatedTemplate = (email, name) => {
            `,
   };
 };
+
+export const contactTemplate = ({email,subject,message}) => {
+  return {
+    from: email,
+    to: process.env.user,
+    replyTo: email,
+    subject: subject,
+    text: message,
+  };
+};
+
 
 
 export const SendMail = async (template) => {

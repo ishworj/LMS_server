@@ -6,6 +6,7 @@ import authRouter from "./src/routers/authRouter.js";
 import bookRouter from "./src/routers/bookRouter.js";
 import borrowRouter from "./src/routers/borrowHistoryRouter.js";
 import reviewRouter from "./src/routers/reviewRouter.js";
+import contactRouter from "./src/routers/contactRouter.js"
 
 import { errorHandler } from "./src/middlewares/errorHandler.js";
 import { SendMail } from "./src/config/nodemailerConfig.js";
@@ -22,6 +23,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/books", bookRouter);
 app.use("/api/v1/borrows", borrowRouter);
 app.use("/api/v1/reviews", reviewRouter);
+app.use("/api/v1/contact",contactRouter)
 // serve static files ie image
 app.use("/image", express.static("assets/images"));
 
