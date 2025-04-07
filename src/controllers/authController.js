@@ -15,7 +15,11 @@ import { comparePassword, hashPassword } from "../utils/bcryptjs.js";
 import { jwtSign, refreshJwtSign } from "../utils/jwt.js";
 import { v4 as uuidv4 } from "uuid";
 import { generaterandom } from "../utils/otpGenerator.js";
-import { findToken, getSesssion, insertToken } from "../models/sessions/SessionsSchema.js";
+import {
+  findToken,
+  getSesssion,
+  insertToken,
+} from "../models/sessions/SessionsSchema.js";
 
 export const login = async (req, res, next) => {
   try {
@@ -38,7 +42,6 @@ export const login = async (req, res, next) => {
       const token = await jwtSign(tokenData);
       const refreshToken = await refreshJwtSign(tokenData);
 
-      // save the refresh Token in the userData
       const data = await UpdateUser(
         { email: userData.email },
         {
@@ -320,7 +323,7 @@ export const generateOTP = async (req, res, next) => {
 export const resetNewPassword = async (req, res, next) => {
   try {
     const { password, email, otp } = req.body;
-    const session = await getSesssion(otp,email)
+    const session = await getSesssion(otp, email);
 
     if (session?._id) {
       // encrypt and update user table

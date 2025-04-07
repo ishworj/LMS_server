@@ -5,12 +5,17 @@ export const createBorrowdb = (borrowObj) => {
 };
 
 export const getAllBorrowsDB = () => {
-  return BorrowHistorySchema.find({});
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  return BorrowHistorySchema.find({
+    borrowDate: { $gte: thirtyDaysAgo },
+  });
 };
 
 
+
 export const getUserBorrowDB = (id) => {
-  console.log(id)
   return BorrowHistorySchema.find({userId:id});}
 
 export const returningBook = (filterObj,borrowObj) => {
