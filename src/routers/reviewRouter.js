@@ -5,7 +5,7 @@ import {
   getAllReviews,
   insertReview,
   updateAReviewById,
-} from "../models/reviews/reviewModel.js";
+} from "../models/reviews/ReviewModel.js";
 import { authenticate, isAdmin } from "../middlewares/authenticateMiddleware.js";
 import { returningBook } from "../models/borrowHistory/BorrowHistoryModel.js";
 

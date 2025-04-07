@@ -1,4 +1,4 @@
-import ReviewSchema from "./reviewSchema.js";
+import ReviewSchema from "./ReviewSchema.js";
 
 // insert
 export const insertReview = (obj) => {
