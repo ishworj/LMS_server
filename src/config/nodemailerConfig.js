@@ -6,7 +6,7 @@ export const verifyUserTemplate = (token, email) => {
     to: email,
     subject: "Verify you readease account",
     text: "please veify your readease account using following link",
-    html: `<p> <a href="http://localhost:${process.env.PORT}/api/v1/auth/verify/${token}">Click here to verify </a></p>`,
+    html: `<p> <a href="https://lms-server-3zwn.onrender.com/api/v1/auth/verify/${token}">Click here to verify </a></p>`,
   };
 };
 
